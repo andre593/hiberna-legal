@@ -4,463 +4,806 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Hiberna — Documentos Legais</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;1,9..40,300&display=swap" rel="stylesheet">
 <style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    background: #0a0a14;
-    color: #e5e7eb;
-    line-height: 1.7;
-  }
-  nav {
-    background: #111827;
-    border-bottom: 1px solid #1f2937;
-    padding: 16px 24px;
-    display: flex;
-    gap: 24px;
-    align-items: center;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-  }
-  nav .logo {
-    color: #a78bfa;
-    font-weight: 800;
-    font-size: 18px;
-    text-decoration: none;
-  }
-  nav a {
-    color: #9ca3af;
-    text-decoration: none;
-    font-size: 14px;
-    transition: color 0.2s;
-  }
-  nav a:hover { color: #a78bfa; }
-  .container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 48px 24px;
-  }
-  h1 {
-    font-size: 28px;
-    font-weight: 800;
-    color: #f9fafb;
-    margin-bottom: 8px;
-  }
-  .data-vigencia {
-    color: #6b7280;
-    font-size: 13px;
-    margin-bottom: 40px;
-    padding-bottom: 24px;
-    border-bottom: 1px solid #1f2937;
-  }
-  h2 {
-    font-size: 18px;
-    font-weight: 700;
-    color: #a78bfa;
-    margin: 32px 0 12px;
-  }
-  h3 {
-    font-size: 15px;
-    font-weight: 600;
-    color: #d1d5db;
-    margin: 20px 0 8px;
-  }
-  p { color: #9ca3af; margin-bottom: 12px; font-size: 15px; }
-  ul, ol {
-    color: #9ca3af;
-    padding-left: 20px;
-    margin-bottom: 12px;
-    font-size: 15px;
-  }
-  li { margin-bottom: 6px; }
-  .highlight {
-    background: #1f2937;
-    border-left: 3px solid #a78bfa;
-    padding: 16px 20px;
-    border-radius: 0 8px 8px 0;
-    margin: 16px 0;
-  }
-  .highlight p { margin: 0; color: #d1d5db; }
-  a { color: #a78bfa; }
-  footer {
-    background: #111827;
-    border-top: 1px solid #1f2937;
-    padding: 24px;
-    text-align: center;
-    color: #4b5563;
-    font-size: 13px;
-    margin-top: 80px;
-  }
-  .page { display: none; }
-  .page.active { display: block; }
-  .home-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 16px;
-    margin-top: 32px;
-  }
-  .card {
-    background: #111827;
-    border: 1px solid #1f2937;
-    border-radius: 12px;
-    padding: 24px;
-    cursor: pointer;
-    transition: border-color 0.2s;
-    text-decoration: none;
-    display: block;
-  }
-  .card:hover { border-color: #a78bfa; }
-  .card-icon { font-size: 32px; margin-bottom: 12px; }
-  .card-title { color: #f9fafb; font-weight: 700; font-size: 16px; margin-bottom: 4px; }
-  .card-desc { color: #6b7280; font-size: 13px; }
+:root {
+  --bg: #06060f;
+  --surface: #0d0d1a;
+  --surface2: #12122080;
+  --accent: #7c3aed;
+  --accent2: #a855f7;
+  --accent3: #c084fc;
+  --glow: #7c3aed40;
+  --text: #f0eeff;
+  --muted: #8882aa;
+  --border: #1e1a35;
+  --radius: 16px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ── BACKGROUND ── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 40% at 20% 10%, #3b0764 0%, transparent 60%),
+    radial-gradient(ellipse 40% 50% at 80% 80%, #1e1b4b 0%, transparent 60%),
+    radial-gradient(ellipse 80% 30% at 50% 50%, #0f0920 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Animated grid */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
+  opacity: 0.35;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 32px;
+  height: 64px;
+  background: #06060fcc;
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-logo {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 20px;
+  color: var(--text);
+  text-decoration: none;
+  letter-spacing: -0.5px;
+  margin-right: auto;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nav-logo span {
+  display: inline-block;
+  width: 28px;
+  height: 28px;
+  background: linear-gradient(135deg, var(--accent), var(--accent3));
+  border-radius: 8px;
+  position: relative;
+}
+
+.nav-logo span::after {
+  content: '';
+  position: absolute;
+  inset: 6px;
+  background: var(--bg);
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+  transform: rotate(180deg);
+}
+
+nav a {
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 400;
+  padding: 6px 14px;
+  border-radius: 8px;
+  transition: all 0.2s;
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+
+nav a:hover, nav a.active {
+  color: var(--accent3);
+  background: var(--glow);
+  border-color: var(--accent)40;
+}
+
+/* ── PAGES ── */
+.page { display: none; position: relative; z-index: 1; }
+.page.active { display: block; }
+
+/* ── HOME ── */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 100px 24px 60px;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--glow);
+  border: 1px solid var(--accent)60;
+  border-radius: 999px;
+  padding: 6px 16px;
+  font-size: 12px;
+  color: var(--accent3);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 500;
+  margin-bottom: 32px;
+  animation: fadeUp 0.6s ease both;
+}
+
+.hero-badge::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  background: var(--accent3);
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.8); }
+}
+
+.hero h1 {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(48px, 8vw, 96px);
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: -3px;
+  animation: fadeUp 0.6s 0.1s ease both;
+}
+
+.hero h1 em {
+  font-style: normal;
+  background: linear-gradient(135deg, var(--accent2), var(--accent3) 60%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-sub {
+  margin-top: 20px;
+  color: var(--muted);
+  font-size: 17px;
+  max-width: 480px;
+  line-height: 1.6;
+  font-weight: 300;
+  animation: fadeUp 0.6s 0.2s ease both;
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  max-width: 960px;
+  width: 100%;
+  margin-top: 56px;
+  animation: fadeUp 0.6s 0.3s ease both;
+}
+
+.card {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px 24px;
+  cursor: pointer;
+  text-decoration: none;
+  display: block;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(12px);
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, var(--accent)10, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.card:hover {
+  border-color: var(--accent)80;
+  transform: translateY(-4px);
+  box-shadow: 0 20px 60px var(--glow);
+}
+
+.card:hover::before { opacity: 1; }
+
+.card-icon {
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(135deg, var(--accent)30, var(--accent2)10);
+  border: 1px solid var(--accent)40;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  margin-bottom: 16px;
+}
+
+.card-title {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+
+.card-desc { color: var(--muted); font-size: 13px; line-height: 1.5; }
+
+.card-arrow {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  color: var(--muted);
+  font-size: 18px;
+  transition: transform 0.2s;
+}
+
+.card:hover .card-arrow {
+  color: var(--accent3);
+  transform: translate(3px, -3px);
+}
+
+/* ── CONTENT PAGES ── */
+.page-wrap {
+  max-width: 740px;
+  margin: 0 auto;
+  padding: 100px 24px 80px;
+}
+
+.page-header {
+  margin-bottom: 56px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid var(--border);
+}
+
+.page-tag {
+  display: inline-block;
+  background: var(--glow);
+  border: 1px solid var(--accent)50;
+  color: var(--accent3);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 6px;
+  margin-bottom: 20px;
+}
+
+.page-header h1 {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(32px, 5vw, 52px);
+  font-weight: 800;
+  letter-spacing: -2px;
+  line-height: 1;
+}
+
+.page-header h1 em {
+  font-style: normal;
+  background: linear-gradient(135deg, var(--accent2), var(--accent3));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.page-date {
+  margin-top: 16px;
+  color: var(--muted);
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.page-date::before {
+  content: '';
+  display: block;
+  width: 24px;
+  height: 1px;
+  background: var(--muted);
+}
+
+/* ── CONTENT ── */
+.content h2 {
+  font-family: 'Syne', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text);
+  margin: 48px 0 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.content h2::before {
+  content: '';
+  display: block;
+  width: 3px;
+  height: 20px;
+  background: linear-gradient(to bottom, var(--accent), var(--accent3));
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+.content h3 {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--accent3);
+  margin: 28px 0 10px;
+  letter-spacing: 0.02em;
+}
+
+.content p {
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.8;
+  margin-bottom: 14px;
+  font-weight: 300;
+}
+
+.content ul, .content ol {
+  color: var(--muted);
+  padding-left: 0;
+  margin-bottom: 14px;
+  font-size: 15px;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.content ul li, .content ol li {
+  padding-left: 20px;
+  position: relative;
+  line-height: 1.7;
+  font-weight: 300;
+}
+
+.content ul li::before {
+  content: '–';
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.content ol { counter-reset: list; }
+.content ol li { counter-increment: list; }
+.content ol li::before {
+  content: counter(list) '.';
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+  font-weight: 700;
+  font-size: 13px;
+}
+
+.content strong { color: var(--text); font-weight: 500; }
+
+.highlight {
+  background: linear-gradient(135deg, var(--accent)15, var(--accent2)05);
+  border: 1px solid var(--accent)40;
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  margin: 20px 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.highlight::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: linear-gradient(to bottom, var(--accent), var(--accent3));
+}
+
+.highlight p { margin: 0; color: #c4bde8; }
+
+/* ── LINKS ── */
+a { color: var(--accent3); text-decoration: none; transition: color 0.2s; }
+a:hover { color: var(--text); }
+
+/* ── FOOTER ── */
+footer {
+  position: relative;
+  z-index: 1;
+  border-top: 1px solid var(--border);
+  padding: 32px 24px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 13px;
+  background: var(--surface2);
+  backdrop-filter: blur(12px);
+}
+
+footer a { color: var(--muted); }
+footer a:hover { color: var(--accent3); }
+
+/* ── BACK BTN ── */
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 13px;
+  margin-bottom: 40px;
+  cursor: pointer;
+  transition: color 0.2s;
+  background: none;
+  border: none;
+  font-family: inherit;
+  padding: 0;
+}
+
+.back-btn:hover { color: var(--accent3); }
+.back-btn::before { content: '←'; font-size: 16px; }
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.page.active .page-header { animation: fadeUp 0.5s ease both; }
+.page.active .content { animation: fadeUp 0.5s 0.1s ease both; }
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 600px) {
+  nav { padding: 0 16px; gap: 4px; }
+  nav a { font-size: 11px; padding: 4px 8px; }
+  .page-wrap { padding: 90px 16px 60px; }
+  .cards-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+  .card { padding: 20px 16px; }
+}
 </style>
 </head>
 <body>
 
 <nav>
-  <a href="#home" class="logo" onclick="showPage('home')">📚 Hiberna</a>
+  <a href="#home" class="nav-logo" onclick="showPage('home')">
+    <span></span>
+    HiBERNA
+  </a>
   <a href="#privacidade" onclick="showPage('privacidade')">Privacidade</a>
-  <a href="#termos" onclick="showPage('termos')">Termos de Uso</a>
+  <a href="#termos" onclick="showPage('termos')">Termos</a>
   <a href="#conteudo" onclick="showPage('conteudo')">Conteúdo</a>
   <a href="#exclusao" onclick="showPage('exclusao')">Excluir Conta</a>
 </nav>
 
 <!-- HOME -->
 <div id="home" class="page active">
-  <div class="container">
-    <h1>Central Legal do Hiberna</h1>
-    <p class="data-vigencia">Documentos oficiais do aplicativo Hiberna</p>
-    <p>Bem-vindo à central de documentos legais do Hiberna. Aqui você encontra nossa Política de Privacidade, Termos de Uso e demais informações sobre como operamos.</p>
-    <div class="home-grid">
+  <div class="hero">
+    <div class="hero-badge">Documentos Oficiais</div>
+    <h1>Legal<br><em>Hiberna.</em></h1>
+    <p class="hero-sub">Transparência total. Aqui você encontra tudo sobre como cuidamos dos seus dados e as regras da plataforma.</p>
+    <div class="cards-grid">
       <a class="card" href="#privacidade" onclick="showPage('privacidade')">
         <div class="card-icon">🔒</div>
         <div class="card-title">Política de Privacidade</div>
         <div class="card-desc">Como coletamos, usamos e protegemos seus dados</div>
+        <div class="card-arrow">↗</div>
       </a>
       <a class="card" href="#termos" onclick="showPage('termos')">
         <div class="card-icon">📋</div>
         <div class="card-title">Termos de Uso</div>
         <div class="card-desc">Regras e condições para usar o Hiberna</div>
+        <div class="card-arrow">↗</div>
       </a>
       <a class="card" href="#conteudo" onclick="showPage('conteudo')">
         <div class="card-icon">📖</div>
         <div class="card-title">Política de Conteúdo</div>
         <div class="card-desc">O que pode e o que não pode ser publicado</div>
+        <div class="card-arrow">↗</div>
       </a>
       <a class="card" href="#exclusao" onclick="showPage('exclusao')">
         <div class="card-icon">🗑️</div>
         <div class="card-title">Excluir Minha Conta</div>
         <div class="card-desc">Como solicitar a exclusão dos seus dados</div>
+        <div class="card-arrow">↗</div>
       </a>
     </div>
   </div>
 </div>
 
-<!-- POLÍTICA DE PRIVACIDADE -->
+<!-- PRIVACIDADE -->
 <div id="privacidade" class="page">
-  <div class="container">
-    <h1>Política de Privacidade</h1>
-    <p class="data-vigencia">Última atualização: Abril de 2025 · Vigente a partir de: Abril de 2025</p>
-
-    <div class="highlight">
-      <p>Esta Política de Privacidade foi elaborada em conformidade com a Lei Geral de Proteção de Dados (LGPD — Lei nº 13.709/2018) e as diretrizes da Google Play Store.</p>
+  <div class="page-wrap">
+    <button class="back-btn" onclick="showPage('home')">Voltar ao início</button>
+    <div class="page-header">
+      <div class="page-tag">Legal</div>
+      <h1>Política de <em>Privacidade</em></h1>
+      <div class="page-date">Última atualização: Maio de 2026</div>
     </div>
-
-    <h2>1. Quem Somos</h2>
-    <p>O Hiberna é um aplicativo de biblioteca digital desenvolvido e operado por <strong>[andre/ hiberna]</strong>, com sede no Brasil. Somos os controladores dos dados pessoais coletados através do aplicativo.</p>
-    <p>Contato: <strong>[andreluisfagundes66@gmail.com]</strong></p>
-
-    <h2>2. Dados que Coletamos</h2>
-    <h3>Dados fornecidos por você:</h3>
-    <ul>
-      <li><strong>Email e senha</strong> — para criar e acessar sua conta</li>
-      <li><strong>Nome de usuário e idade</strong> — para personalizar seu perfil</li>
-      <li><strong>Foto de perfil</strong> — opcional, enviada por você</li>
-      <li><strong>Conteúdo do diário pessoal</strong> — anotações privadas que você cria</li>
-      <li><strong>Mensagens do chat regional</strong> — texto enviado no chat público</li>
-      <li><strong>Livros enviados para aprovação</strong> — título, autor, descrição, capa e conteúdo</li>
-    </ul>
-    <h3>Dados coletados automaticamente:</h3>
-    <ul>
-      <li><strong>Token FCM</strong> — identificador para envio de notificações push</li>
-      <li><strong>Saldo de moedas e histórico da roleta</strong> — para funcionamento do sistema de recompensas</li>
-      <li><strong>Data e hora de uso</strong> — logs automáticos de acesso</li>
-      <li><strong>Identificador do dispositivo</strong> — para fins de segurança</li>
-    </ul>
-
-    <h2>3. Base Legal (LGPD)</h2>
-    <ul>
-      <li><strong>Execução de contrato</strong> (Art. 7º, V) — dados necessários para fornecer o serviço</li>
-      <li><strong>Consentimento</strong> (Art. 7º, I) — foto de perfil e notificações push</li>
-      <li><strong>Legítimo interesse</strong> (Art. 7º, IX) — segurança e prevenção a fraudes</li>
-    </ul>
-
-    <h2>4. Como Usamos seus Dados</h2>
-    <ul>
-      <li>Criar e gerenciar sua conta</li>
-      <li>Exibir seu perfil para outros usuários do chat</li>
-      <li>Enviar notificações sobre prêmios, novos livros e atualizações</li>
-      <li>Processar o sistema de moedas e recompensas da roleta</li>
-      <li>Moderar conteúdo enviado por usuários (livros e mensagens)</li>
-      <li>Garantir a segurança do serviço</li>
-      <li>Exibir anúncios em vídeo via Google AdMob (antes da roleta)</li>
-    </ul>
-
-    <h2>5. Compartilhamento com Terceiros</h2>
-    <p>Compartilhamos dados com os seguintes parceiros técnicos:</p>
-    <ul>
-      <li><strong>Supabase Inc.</strong> (EUA) — banco de dados, autenticação e armazenamento de arquivos</li>
-      <li><strong>Google Firebase / FCM</strong> (EUA) — notificações push</li>
-      <li><strong>Google AdMob</strong> (EUA) — exibição de anúncios em vídeo</li>
-    </ul>
-    <p>Não vendemos seus dados a terceiros. Não compartilhamos dados com fins de marketing sem seu consentimento.</p>
-
-    <h2>6. Transferência Internacional de Dados</h2>
-    <p>Seus dados são armazenados em servidores nos Estados Unidos (Supabase e Google). Essa transferência é realizada com garantias adequadas de proteção, conforme permitido pela LGPD (Art. 33).</p>
-
-    <h2>7. Por Quanto Tempo Guardamos seus Dados</h2>
-    <ul>
-      <li><strong>Conta ativa:</strong> enquanto você mantiver sua conta</li>
-      <li><strong>Após exclusão da conta:</strong> dados apagados em até 30 dias</li>
-      <li><strong>Logs de segurança:</strong> mantidos por até 6 meses</li>
-      <li><strong>Conteúdo aprovado na loja (livros):</strong> pode ser mantido mesmo após exclusão da conta, sem identificação do autor</li>
-    </ul>
-
-    <h2>8. Seus Direitos (LGPD — Art. 18)</h2>
-    <p>Você tem direito a:</p>
-    <ul>
-      <li>Confirmar se processamos seus dados</li>
-      <li>Acessar seus dados pessoais</li>
-      <li>Corrigir dados incompletos ou desatualizados</li>
-      <li>Solicitar a exclusão dos seus dados</li>
-      <li>Portabilidade dos seus dados</li>
-      <li>Revogar o consentimento a qualquer momento</li>
-    </ul>
-    <p>Para exercer esses direitos: <strong>[andreluisfagundes66@gmail.com]</strong> ou pelo botão "Excluir minha conta" nas Configurações do app.</p>
-
-    <h2>9. Exclusão de Conta e Dados</h2>
-    <p>Você pode excluir sua conta diretamente pelo app em <strong>Configurações → Excluir minha conta</strong>. Isso apagará permanentemente todos os seus dados.</p>
-    <p>Alternativamente, envie um email para <strong>[andreluisfagundes66@gmail.com]</strong> com o assunto "Exclusão de dados" e processaremos em até 15 dias úteis.</p>
-
-    <h2>10. Anúncios Personalizados (AdMob)</h2>
-    <p>O Hiberna exibe anúncios em vídeo via Google AdMob antes dos giros da roleta. O AdMob pode usar seu identificador de publicidade para exibir anúncios relevantes. Você pode desativar anúncios personalizados nas configurações do seu dispositivo Android em <strong>Configurações → Google → Anúncios → Cancelar personalização de anúncios</strong>.</p>
-
-    <h2>11. Dados de Menores de Idade</h2>
-    <p>O Hiberna não é destinado a crianças menores de 13 anos. Não coletamos intencionalmente dados de menores de 13 anos. Se tomarmos conhecimento de que um menor de 13 anos criou uma conta, excluiremos os dados imediatamente.</p>
-
-    <h2>12. Segurança dos Dados</h2>
-    <p>Adotamos medidas técnicas e organizacionais para proteger seus dados, incluindo: criptografia em trânsito (HTTPS/TLS), autenticação segura via Supabase Auth, controle de acesso por Row Level Security (RLS) no banco de dados, e senhas armazenadas com hash bcrypt.</p>
-
-    <h2>13. Alterações nesta Política</h2>
-    <p>Podemos atualizar esta política periodicamente. Notificaremos sobre mudanças significativas através de notificação no app. A data de "Última atualização" no topo indica quando ocorreu a revisão mais recente.</p>
-
-    <h2>14. Contato</h2>
-    <p>Dúvidas sobre privacidade: <strong>[andreluisfagundes66@gmail.com]</strong><br>
-    Encarregado de Dados (DPO): <strong>[andre]</strong></p>
+    <div class="content">
+      <div class="highlight">
+        <p>Esta Política de Privacidade foi elaborada em conformidade com a Lei Geral de Proteção de Dados (LGPD — Lei nº 13.709/2018) e as diretrizes da Google Play Store.</p>
+      </div>
+      <h2>Quem Somos</h2>
+      <p>O Hiberna é um aplicativo de biblioteca digital desenvolvido e operado por <strong>André Fagundes / Hiberna</strong>, com sede no Brasil. Somos os controladores dos dados pessoais coletados através do aplicativo.</p>
+      <p>Contato: <strong>andreluisfagundes66@gmail.com</strong></p>
+      <h2>Dados que Coletamos</h2>
+      <h3>Dados fornecidos por você:</h3>
+      <ul>
+        <li><strong>Email e senha</strong> — para criar e acessar sua conta</li>
+        <li><strong>Nome de usuário, idade e gênero</strong> — para personalizar seu perfil</li>
+        <li><strong>Foto de perfil</strong> — opcional, enviada por você</li>
+        <li><strong>Conteúdo do diário pessoal</strong> — anotações privadas que você cria</li>
+        <li><strong>Mensagens do chat regional</strong> — texto enviado no chat público</li>
+        <li><strong>Livros enviados para aprovação</strong> — título, autor, descrição, capa e conteúdo</li>
+      </ul>
+      <h3>Dados coletados automaticamente:</h3>
+      <ul>
+        <li><strong>Token FCM</strong> — identificador para envio de notificações push</li>
+        <li><strong>Saldo de moedas e histórico da roleta</strong> — para funcionamento do sistema de recompensas</li>
+        <li><strong>Data e hora de uso</strong> — logs automáticos de acesso</li>
+        <li><strong>Identificador do dispositivo</strong> — para fins de segurança e publicidade</li>
+      </ul>
+      <h2>Base Legal (LGPD)</h2>
+      <ul>
+        <li><strong>Execução de contrato</strong> (Art. 7º, V) — dados necessários para fornecer o serviço</li>
+        <li><strong>Consentimento</strong> (Art. 7º, I) — foto de perfil e notificações push</li>
+        <li><strong>Legítimo interesse</strong> (Art. 7º, IX) — segurança e prevenção a fraudes</li>
+      </ul>
+      <h2>Como Usamos seus Dados</h2>
+      <ul>
+        <li>Criar e gerenciar sua conta</li>
+        <li>Exibir seu perfil para outros usuários do chat</li>
+        <li>Enviar notificações sobre prêmios, novos livros e atualizações</li>
+        <li>Processar o sistema de moedas e recompensas da roleta</li>
+        <li>Processar interações com a IA (HBR-X)</li>
+        <li>Moderar conteúdo enviado por usuários (livros e mensagens)</li>
+        <li>Garantir a segurança do serviço</li>
+        <li>Exibir anúncios em vídeo via Google AdMob</li>
+      </ul>
+      <h2>Compartilhamento com Terceiros</h2>
+      <ul>
+        <li><strong>Supabase Inc.</strong> (EUA) — banco de dados, autenticação e armazenamento</li>
+        <li><strong>Google Firebase / FCM</strong> (EUA) — notificações push</li>
+        <li><strong>Google AdMob</strong> (EUA) — exibição de anúncios em vídeo</li>
+        <li><strong>Google Gemini API</strong> (EUA) — processamento de mensagens da IA HBR-X</li>
+      </ul>
+      <p>Não vendemos seus dados a terceiros. Não compartilhamos dados com fins de marketing sem seu consentimento.</p>
+      <h2>Transferência Internacional de Dados</h2>
+      <p>Seus dados são armazenados em servidores nos Estados Unidos (Supabase e Google). Essa transferência é realizada com garantias adequadas de proteção, conforme permitido pela LGPD (Art. 33).</p>
+      <h2>Por Quanto Tempo Guardamos seus Dados</h2>
+      <ul>
+        <li><strong>Conta ativa:</strong> enquanto você mantiver sua conta</li>
+        <li><strong>Após exclusão da conta:</strong> dados pessoais apagados em até 30 dias</li>
+        <li><strong>Logs de segurança:</strong> mantidos por até 6 meses</li>
+        <li><strong>Conteúdo aprovado na loja (livros):</strong> pode ser mantido mesmo após exclusão, sem identificação direta do autor</li>
+      </ul>
+      <h2>Seus Direitos (LGPD — Art. 18)</h2>
+      <ul>
+        <li>Confirmar se processamos seus dados</li>
+        <li>Acessar seus dados pessoais</li>
+        <li>Corrigir dados incompletos ou desatualizados</li>
+        <li>Solicitar a exclusão dos seus dados</li>
+        <li>Portabilidade dos seus dados</li>
+        <li>Revogar o consentimento a qualquer momento</li>
+      </ul>
+      <h2>Exclusão de Conta e Dados</h2>
+      <p>Você pode excluir sua conta diretamente pelo app em <strong>Configurações → Excluir minha conta</strong>. Isso apagará permanentemente todos os seus dados pessoais.</p>
+      <p>Alternativamente, envie um email para <strong>andreluisfagundes66@gmail.com</strong> com o assunto "Exclusão de dados" e processaremos em até 15 dias úteis.</p>
+      <h2>Anúncios Personalizados (AdMob)</h2>
+      <p>O Hiberna exibe anúncios em vídeo via Google AdMob. Você pode desativar anúncios personalizados em <strong>Configurações → Google → Anúncios → Cancelar personalização</strong> no seu Android.</p>
+      <h2>Dados de Menores de Idade</h2>
+      <p>O Hiberna não é destinado a crianças menores de 13 anos. Se tomarmos conhecimento disso, excluiremos os dados imediatamente.</p>
+      <h2>Segurança dos Dados</h2>
+      <p>Adotamos: criptografia em trânsito (HTTPS/TLS), autenticação segura via Supabase Auth, controle de acesso por Row Level Security (RLS) e senhas armazenadas com hash seguro.</p>
+      <h2>Alterações nesta Política</h2>
+      <p>Notificaremos sobre mudanças significativas através de notificação no app.</p>
+      <h2>Contato</h2>
+      <p>Dúvidas: <strong>andreluisfagundes66@gmail.com</strong><br>Encarregado de Dados (DPO): <strong>André Fagundes</strong></p>
+    </div>
   </div>
 </div>
 
-<!-- TERMOS DE USO -->
+<!-- TERMOS -->
 <div id="termos" class="page">
-  <div class="container">
-    <h1>Termos de Uso</h1>
-    <p class="data-vigencia">Última atualização: Abril de 2025 · Vigente a partir de: Abril de 2025</p>
-
-    <h2>1. Aceitação dos Termos</h2>
-    <p>Ao criar uma conta ou usar o aplicativo Hiberna, você concorda com estes Termos de Uso. Se não concordar, não utilize o app.</p>
-    <p>Você deve ter pelo menos 13 anos para usar o Hiberna.</p>
-
-    <h2>2. Descrição do Serviço</h2>
-    <p>O Hiberna é uma plataforma de biblioteca digital que permite:</p>
-    <ul>
-      <li>Acessar e ler livros disponíveis na biblioteca</li>
-      <li>Enviar seus próprios livros para aprovação e publicação</li>
-      <li>Participar do chat regional com outros usuários</li>
-      <li>Ganhar moedas virtuais por atividades diárias</li>
-      <li>Participar da roleta de prêmios usando moedas</li>
-      <li>Manter um diário pessoal privado</li>
-    </ul>
-
-    <h2>3. Cadastro e Conta</h2>
-    <ul>
-      <li>Você é responsável por manter sua senha em sigilo</li>
-      <li>Não compartilhe sua conta com outras pessoas</li>
-      <li>Informe dados verdadeiros no cadastro</li>
-      <li>Notifique-nos imediatamente sobre uso não autorizado da sua conta</li>
-    </ul>
-
-    <h2>4. Regras de Conduta</h2>
-    <p>É expressamente proibido no Hiberna:</p>
-    <ul>
-      <li>Publicar conteúdo com discurso de ódio, racismo ou discriminação</li>
-      <li>Assediar, ameaçar ou intimidar outros usuários</li>
-      <li>Publicar conteúdo adulto, pornográfico ou inadequado para menores</li>
-      <li>Fazer spam ou publicidade não autorizada</li>
-      <li>Publicar obras com direitos autorais sem autorização do autor</li>
-      <li>Criar múltiplas contas para burlar restrições</li>
-      <li>Usar o app para atividades ilegais</li>
-      <li>Tentar hackear, comprometer ou sobrecarregar o sistema</li>
-    </ul>
-
-    <h2>5. Conteúdo do Usuário</h2>
-    <p>Ao enviar livros, mensagens ou qualquer conteúdo para o Hiberna:</p>
-    <ul>
-      <li>Você garante que tem os direitos sobre o conteúdo enviado</li>
-      <li>Você concede ao Hiberna licença não exclusiva para exibir o conteúdo aprovado na plataforma</li>
-      <li>Todo conteúdo passa por moderação antes de ser publicado</li>
-      <li>Reservamos o direito de remover qualquer conteúdo que viole estas regras</li>
-    </ul>
-
-    <h2>6. Moedas Virtuais e Roleta</h2>
-    <div class="highlight">
-      <p>As moedas do Hiberna são virtuais e NÃO têm valor monetário real. Não podem ser trocadas por dinheiro, transferidas entre usuários ou reembolsadas. Prêmios ganhos na roleta são apenas conteúdo digital dentro do app.</p>
+  <div class="page-wrap">
+    <button class="back-btn" onclick="showPage('home')">Voltar ao início</button>
+    <div class="page-header">
+      <div class="page-tag">Legal</div>
+      <h1>Termos de <em>Uso</em></h1>
+      <div class="page-date">Última atualização: Maio de 2026</div>
     </div>
-
-    <h2>7. Anúncios</h2>
-    <p>O Hiberna exibe anúncios em vídeo via Google AdMob antes dos giros gratuitos da roleta. Ao usar o app, você concorda com a exibição desses anúncios.</p>
-
-    <h2>8. Propriedade Intelectual</h2>
-    <p>O app Hiberna, seu design, logo e funcionalidades são propriedade de <strong>[andre / Hiberna]</strong>. É proibida a cópia, distribuição ou uso comercial sem autorização.</p>
-
-    <h2>9. Isenção de Responsabilidade</h2>
-    <p>O Hiberna é fornecido "como está". Não garantimos disponibilidade ininterrupta, ausência de erros ou que o conteúdo da biblioteca atenderá às suas expectativas. Não somos responsáveis por conteúdo publicado por usuários.</p>
-
-    <h2>10. Limitação de Responsabilidade</h2>
-    <p>Nossa responsabilidade é limitada ao máximo permitido pela lei brasileira. Não somos responsáveis por danos indiretos, perda de dados ou lucros cessantes.</p>
-
-    <h2>11. Suspensão e Encerramento</h2>
-    <p>Podemos suspender ou encerrar sua conta se você violar estes termos, sem aviso prévio em casos graves. Você pode encerrar sua conta a qualquer momento em Configurações → Excluir minha conta.</p>
-
-    <h2>12. Modificações</h2>
-    <p>Podemos modificar estes termos. Mudanças significativas serão comunicadas via notificação no app com 15 dias de antecedência. O uso continuado após as mudanças implica aceitação.</p>
-
-    <h2>13. Lei Aplicável e Foro</h2>
-    <p>Estes Termos são regidos pela lei brasileira. Fica eleito o foro da comarca de <strong>[cuiaba-mt]</strong>, Brasil, para dirimir quaisquer controvérsias.</p>
-
-    <h2>14. Contato</h2>
-    <p>Dúvidas sobre os Termos: <strong>[andreluisfagundes66@gmail.com]</strong></p>
+    <div class="content">
+      <h2>Aceitação dos Termos</h2>
+      <p>Ao criar uma conta ou usar o aplicativo Hiberna, você concorda com estes Termos de Uso. Se não concordar, não utilize o app. Você deve ter pelo menos 13 anos para usar o Hiberna.</p>
+      <h2>Descrição do Serviço</h2>
+      <p>O Hiberna é uma plataforma de biblioteca digital que permite:</p>
+      <ul>
+        <li>Acessar e ler livros disponíveis na biblioteca</li>
+        <li>Enviar seus próprios livros para aprovação e publicação</li>
+        <li>Participar do chat regional com outros usuários</li>
+        <li>Ganhar moedas virtuais por atividades diárias</li>
+        <li>Participar da roleta de prêmios usando moedas</li>
+        <li>Interagir com a IA assistente (HBR-X)</li>
+        <li>Manter um diário pessoal privado</li>
+      </ul>
+      <h2>Cadastro e Conta</h2>
+      <ul>
+        <li>Você é responsável por manter sua senha em sigilo</li>
+        <li>Não compartilhe sua conta com outras pessoas</li>
+        <li>Informe dados verdadeiros no cadastro</li>
+        <li>Notifique-nos imediatamente sobre uso não autorizado</li>
+      </ul>
+      <h2>Regras de Conduta</h2>
+      <p>É expressamente proibido no Hiberna:</p>
+      <ul>
+        <li>Publicar conteúdo com discurso de ódio, racismo ou discriminação</li>
+        <li>Assediar, ameaçar ou intimidar outros usuários</li>
+        <li>Publicar conteúdo adulto ou pornográfico</li>
+        <li>Fazer spam ou publicidade não autorizada</li>
+        <li>Publicar obras com direitos autorais sem autorização</li>
+        <li>Criar múltiplas contas para burlar restrições</li>
+        <li>Usar o app para atividades ilegais</li>
+      </ul>
+      <h2>Conteúdo do Usuário</h2>
+      <ul>
+        <li>Você garante que tem os direitos sobre o conteúdo enviado</li>
+        <li>Você concede ao Hiberna licença não exclusiva para exibir o conteúdo aprovado</li>
+        <li>Todo conteúdo passa por moderação antes de ser publicado</li>
+        <li>Reservamos o direito de remover qualquer conteúdo que viole estas regras</li>
+      </ul>
+      <h2>Moedas Virtuais e Roleta</h2>
+      <div class="highlight">
+        <p>As moedas do Hiberna são virtuais e NÃO têm valor monetário real. Não podem ser trocadas por dinheiro, transferidas entre usuários ou reembolsadas.</p>
+      </div>
+      <h2>Anúncios</h2>
+      <p>O Hiberna exibe anúncios em vídeo via Google AdMob antes de certas interações. Ao usar o app, você concorda com a exibição desses anúncios.</p>
+      <h2>Propriedade Intelectual</h2>
+      <p>O app Hiberna, seu design, logo e funcionalidades são propriedade de <strong>André Fagundes / Hiberna</strong>. É proibida a cópia ou uso comercial sem autorização.</p>
+      <h2>Isenção de Responsabilidade</h2>
+      <p>O Hiberna é fornecido "como está". Não garantimos disponibilidade ininterrupta. Não somos responsáveis por conteúdo publicado por usuários.</p>
+      <h2>Suspensão e Encerramento</h2>
+      <p>Podemos suspender sua conta se você violar estes termos. Você pode encerrar sua conta a qualquer momento em <strong>Configurações → Excluir minha conta</strong>.</p>
+      <h2>Lei Aplicável e Foro</h2>
+      <p>Estes Termos são regidos pela lei brasileira. Foro eleito: comarca de <strong>Cuiabá-MT</strong>, Brasil.</p>
+      <h2>Contato</h2>
+      <p>Dúvidas: <strong>andreluisfagundes66@gmail.com</strong></p>
+    </div>
   </div>
 </div>
 
-<!-- POLÍTICA DE CONTEÚDO -->
+<!-- CONTEÚDO -->
 <div id="conteudo" class="page">
-  <div class="container">
-    <h1>Política de Conteúdo</h1>
-    <p class="data-vigencia">Última atualização: Abril de 2025</p>
-
-    <h2>1. Conteúdo Permitido</h2>
-    <ul>
-      <li>Livros e textos originais de sua autoria</li>
-      <li>Obras em domínio público (publicadas há mais de 70 anos)</li>
-      <li>Obras com autorização expressa do autor</li>
-      <li>Conteúdo educativo, motivacional e de desenvolvimento pessoal</li>
-      <li>Mensagens respeitosas no chat regional</li>
-    </ul>
-
-    <h2>2. Conteúdo Proibido</h2>
-    <ul>
-      <li>Conteúdo sexualmente explícito ou pornográfico</li>
-      <li>Discurso de ódio, racismo, xenofobia ou discriminação</li>
-      <li>Violência gráfica ou incitação à violência</li>
-      <li>Conteúdo que explora ou prejudica menores</li>
-      <li>Plágio ou violação de direitos autorais</li>
-      <li>Spam, propaganda política ou comercial não autorizada</li>
-      <li>Informações falsas ou desinformação</li>
-      <li>Conteúdo que promova atividades ilegais</li>
-    </ul>
-
-    <h2>3. Processo de Moderação</h2>
-    <p>Todo livro enviado passa pelo seguinte processo antes de aparecer na biblioteca:</p>
-    <ol>
-      <li>Envio pelo usuário com título, autor, capa e conteúdo</li>
-      <li>Análise manual pela equipe do Hiberna</li>
-      <li>Aprovação ou rejeição com justificativa</li>
-      <li>Publicação na biblioteca (se aprovado)</li>
-    </ol>
-    <p>Prazo de análise: até 7 dias úteis.</p>
-
-    <h2>4. Como Reportar Conteúdo</h2>
-    <p>Se encontrar conteúdo inadequado no app, entre em contato: <strong>[andreluisfagundes66@gmail.com]</strong> com o assunto "Denúncia de conteúdo" informando o título do livro ou a mensagem do chat.</p>
-
-    <h2>5. Consequências de Violação</h2>
-    <ul>
-      <li><strong>1ª violação leve:</strong> aviso por email</li>
-      <li><strong>Violação grave ou reincidência:</strong> suspensão temporária</li>
-      <li><strong>Violação grave ou múltiplas reincidências:</strong> banimento permanente</li>
-      <li><strong>Conteúdo ilegal:</strong> remoção imediata e possível comunicação às autoridades</li>
-    </ul>
+  <div class="page-wrap">
+    <button class="back-btn" onclick="showPage('home')">Voltar ao início</button>
+    <div class="page-header">
+      <div class="page-tag">Legal</div>
+      <h1>Política de <em>Conteúdo</em></h1>
+      <div class="page-date">Última atualização: Maio de 2026</div>
+    </div>
+    <div class="content">
+      <h2>Conteúdo Permitido</h2>
+      <ul>
+        <li>Livros e textos originais de sua autoria</li>
+        <li>Obras em domínio público ou com autorização</li>
+        <li>Conteúdo educativo e de desenvolvimento pessoal</li>
+        <li>Mensagens respeitosas no chat</li>
+      </ul>
+      <h2>Conteúdo Proibido</h2>
+      <ul>
+        <li>Conteúdo sexualmente explícito</li>
+        <li>Discurso de ódio ou discriminação</li>
+        <li>Violência gráfica ou incitação à violência</li>
+        <li>Plágio ou violação de direitos autorais</li>
+        <li>Spam ou propaganda não autorizada</li>
+      </ul>
+      <h2>Processo de Moderação</h2>
+      <p>Todo livro enviado passa pelo seguinte processo:</p>
+      <ol>
+        <li>Envio pelo usuário</li>
+        <li>Análise manual pela equipe</li>
+        <li>Aprovação ou rejeição com feedback</li>
+        <li>Publicação na biblioteca (se aprovado)</li>
+      </ol>
+    </div>
   </div>
 </div>
 
-<!-- EXCLUIR CONTA -->
+<!-- EXCLUSÃO -->
 <div id="exclusao" class="page">
-  <div class="container">
-    <h1>Excluir Minha Conta</h1>
-    <p class="data-vigencia">Conforme exigido pela Google Play Store e LGPD</p>
-
-    <div class="highlight">
-      <p>⚠️ A exclusão da conta é permanente e irreversível. Todos os seus dados serão apagados.</p>
+  <div class="page-wrap">
+    <button class="back-btn" onclick="showPage('home')">Voltar ao início</button>
+    <div class="page-header">
+      <div class="page-tag">Dados & Privacidade</div>
+      <h1>Excluir Minha <em>Conta</em></h1>
+      <div class="page-date">Conforme exigido pela Google Play Store e LGPD</div>
     </div>
-
-    <h2>Como Excluir pelo App (Recomendado)</h2>
-    <ol>
-      <li>Abra o Hiberna no seu celular</li>
-      <li>Vá em <strong>Configurações</strong> (ícone de engrenagem)</li>
-      <li>Role até o final da página</li>
-      <li>Toque em <strong>"Excluir minha conta"</strong></li>
-      <li>Confirme a exclusão nas duas etapas de confirmação</li>
-    </ol>
-    <p>Seus dados serão apagados imediatamente do sistema.</p>
-
-    <h2>Como Excluir por Email</h2>
-    <p>Se não conseguir acessar o app, envie um email para <strong>[andreluisfagundes@gmail.com]</strong> com:</p>
-    <ul>
-      <li>Assunto: "Solicitação de exclusão de conta"</li>
-      <li>Seu email cadastrado no Hiberna</li>
-      <li>Nome de usuário</li>
-    </ul>
-    <p>Processaremos em até 15 dias úteis.</p>
-
-    <h2>O que Será Apagado</h2>
-    <ul>
-      <li>✅ Perfil e foto de avatar</li>
-      <li>✅ Email e senha (conta de autenticação)</li>
-      <li>✅ Histórico de moedas e giros da roleta</li>
-      <li>✅ Diário pessoal (todas as anotações)</li>
-      <li>✅ Mensagens do chat regional</li>
-      <li>✅ Livros enviados ainda não aprovados</li>
-      <li>✅ Token de notificações push</li>
-    </ul>
-
-    <h2>O que Pode Ser Mantido</h2>
-    <ul>
-      <li>⚠️ Livros já aprovados e publicados na biblioteca podem ser mantidos sem identificação do autor, por interesse da comunidade</li>
-      <li>⚠️ Logs de segurança por até 6 meses (sem dados pessoais identificáveis)</li>
-    </ul>
+    <div class="content">
+      <div class="highlight">
+        <p>⚠️ A exclusão da conta é permanente e irreversível. Todos os seus dados, fotos e histórico serão apagados.</p>
+      </div>
+      <h2>Como Excluir pelo App</h2>
+      <ol>
+        <li>Abra o Hiberna</li>
+        <li>Vá em <strong>Configurações</strong></li>
+        <li>Toque em <strong>"Excluir minha conta"</strong></li>
+        <li>Confirme a exclusão nas etapas indicadas</li>
+      </ol>
+      <p>Seus dados serão apagados imediatamente do banco de dados e do armazenamento de arquivos.</p>
+      <h2>Como Excluir por Email</h2>
+      <p>Envie um email para <strong>andreluisfagundes66@gmail.com</strong> com:</p>
+      <ul>
+        <li>Assunto: "Solicitação de exclusão de conta"</li>
+        <li>Seu email cadastrado no Hiberna</li>
+      </ul>
+      <p>Processaremos em até 15 dias úteis.</p>
+      <h2>O que Será Apagado</h2>
+      <ul>
+        <li>✅ Perfil, Gênero e Idade</li>
+        <li>✅ Foto de avatar (apagada do servidor)</li>
+        <li>✅ Email e conta de acesso</li>
+        <li>✅ Histórico de moedas e roleta</li>
+        <li>✅ Diário pessoal e mensagens de chat</li>
+        <li>✅ Token de notificações push</li>
+      </ul>
+    </div>
   </div>
 </div>
 
 <footer>
-  <p>© 2025 Hiberna · <a href="#privacidade" onclick="showPage('privacidade')">Privacidade</a> · <a href="#termos" onclick="showPage('termos')">Termos</a> · <a href="#contato">Contato: [andreluisfagundes66@gmail.com]</a></p>
+  <p>© 2026 HiBERNA &nbsp;·&nbsp; <a href="#privacidade" onclick="showPage('privacidade')">Privacidade</a> &nbsp;·&nbsp; <a href="#termos" onclick="showPage('termos')">Termos</a> &nbsp;·&nbsp; <a href="mailto:andreluisfagundes66@gmail.com">andreluisfagundes66@gmail.com</a></p>
 </footer>
 
 <script>
 function showPage(id) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
   const page = document.getElementById(id);
-  if (page) {
-    page.classList.add('active');
-    window.scrollTo(0, 0);
-  }
+  if (page) { page.classList.add('active'); window.scrollTo(0, 0); }
+  const link = document.querySelector(`nav a[href="#${id}"]`);
+  if (link) link.classList.add('active');
 }
-
-// Roteamento por hash
 function handleHash() {
   const hash = window.location.hash.replace('#', '') || 'home';
   showPage(hash);
 }
-
 window.addEventListener('hashchange', handleHash);
 handleHash();
 </script>
